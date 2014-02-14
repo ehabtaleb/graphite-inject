@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# inject-clean.sh - A shell script to inject stat in graphite
+# Author - Ehab TALEB
+# Tested under centos 6/Linux using Bash shell version 
+# -----------------------------------------------------------------------------
 
 #2013-11-19 14:12:44.397+0100|loggernamesla|www.domain.com|instance61|WWW-correlation-id|http-ip-51503-10|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
 
