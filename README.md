@@ -28,7 +28,9 @@ usage(){
 log format
 =====================
 
-2013-11-19 14:12:44.397+0100|loggernamesla|www.domain.com|instance61|WWW-correlation-id|http-ip-51503-10|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
+time stamp|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|APIvercion|response time |internal time|subsys time|com.service.FinalizationService.pay|subsys:2074|error[Y/N]|error detail
+
+2013-11-19 14:12:44.397+0100|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
 
 
 
