@@ -49,10 +49,10 @@ getNewLoad(){
     for t in $MINUTES
     do 
 	#echo "t="$t;
-	echo "getting new files from remote  $DDIR/LIL/SBE/$HOUR-$t$EXACT_MIN/$FILEPATTERN"
-	sshpass -p $SSHPASSWORD scp $SSHUSER:$DDIR/LIL/SBE/$HOUR-$t$EXACT_MIN/$FILEPATTERN ./data/"${DCENTER1}"/
-	echo "getting new files from remote  $DDIR/PRA/SBE/$HOUR-$t$EXACT_MIN/$FILEPATTERN"
-	sshpass -p $SSHPASSWORD scp $SSHUSER:$DDIR/PRA/SBE/$HOUR-$t$EXACT_MIN/$FILEPATTERN ./data/"${DCENTER2}"/
+	echo "getting new files from remote  $DDIR/LIL/$APP/$HOUR-$t$EXACT_MIN/$FILEPATTERN"
+	sshpass -p $SSHPASSWORD scp $SSHUSER:$DDIR/LIL/$APP/$HOUR-$t$EXACT_MIN/$FILEPATTERN ./data/"${DCENTER1}"/
+	echo "getting new files from remote  $DDIR/PRA/$APP/$HOUR-$t$EXACT_MIN/$FILEPATTERN"
+	sshpass -p $SSHPASSWORD scp $SSHUSER:$DDIR/PRA/$APP/$HOUR-$t$EXACT_MIN/$FILEPATTERN ./data/"${DCENTER2}"/
     done
 }
 
@@ -115,8 +115,8 @@ local -r package=$NAMESPACE".error."
      
      ff=`date +'%Y%m%d'`"-$1$ti*"
 
-     find $DATA_FILES -name $ERR_FILEPATTERN$ff -exec grep "SBE_" {} \; | awk -F'|' '{ print "'$package'"$13$14,'"$timestamp"';}' | sort | uniq -c | sort -nr
-     find $DATA_FILES -name $ERR_FILEPATTERN$ff -exec grep "SBE_" {} \; | awk -F'|' '{ print "'$package'"$13$14,'"$timestamp"';}' | sort | uniq -c | sort -nr | awk ' {print $2,$1,$3;}' | nc ${SERVER} ${PORT};
+     find $DATA_FILES -name $ERR_FILEPATTERN$ff -exec grep "$APP_" {} \; | awk -F'|' '{ print "'$package'"$13$14,'"$timestamp"';}' | sort | uniq -c | sort -nr
+     find $DATA_FILES -name $ERR_FILEPATTERN$ff -exec grep "$APP_" {} \; | awk -F'|' '{ print "'$package'"$13$14,'"$timestamp"';}' | sort | uniq -c | sort -nr | awk ' {print $2,$1,$3;}' | nc ${SERVER} ${PORT};
  done
 }
 
