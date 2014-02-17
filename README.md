@@ -4,7 +4,6 @@ inject application log data in graphite
 
 
 1- remove old log files                                                                                               
-===============
 
 cleanUp(){
 
