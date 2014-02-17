@@ -15,7 +15,20 @@ cleanUp(){
 
 2- copy new load of application log 
 
-3- inject webservice Response Time
+3- Extract service response time and netcat to graphite                                                                                                                              
+ normaly some thing like that                                                                                                           com.service.IQuotationService.getOutwardProposalsByDay-lil 983 1392388973                                                                                                         
+
+injectResponseTime(){
+
+    local -r dataCenter="-"$1
+    local -r service=$2
+
+    echo "inject ResponseTime $dataCenter data from "`pwd`
+
+    find $DATA_FILES"/$1" -name $FILEPATTERN -exec grep $service {} \; | awk -F'|' -v class=$dataCenter 'BEGIN{cmd="date +%s -d "}{cmdOnRow=cmd " \""$1"\""; cmdOnRow | getline D; close(cmdOnRow); print $11class,$8,D;}' | nc ${SERVER} ${PORT};
+
+}
+
 
 4- inject webservice volume 
 
