@@ -18,12 +18,11 @@ lunching the inject script
 =========================
 
 usage(){
-
     echo "this script gets a 10 minutes worth of log and inject them in graphite"
-    echo "Usage: sh inject.sh 16 1 #this will analyse and inject between 16:00 and 16:10"
-    echo "Usage: sh inject.sh 16   #this will analyse and inject between 16:00 and 17:00"
-
+    echo "Usage: sh $0 16 [0] this will analyse between 16:00 and 16:10 not included"
+    echo "Usage: sh $0 16  this will analyse between 16:00 and 17:00 not included"
 }
+
 
 log format
 =====================
