@@ -5,37 +5,48 @@
 # Tested under centos 6/Linux using Bash shell version 
 # -----------------------------------------------------------------------------
 
-#2013-11-19 14:12:44.397+0100|loggernamesla|www.domain.com|instance61|WWW-correlation-id|http-ip-51503-10|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
+#2013-11-19 14:12:44.397+0100|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip-51503-10|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
 
 #exit with first non 0 result
 #set -e
 
 #Global Variables
+# where i installed Graphite
 PORT="2003"
 SERVER="127.0.0.1"
+
 EXACT_MIN="0"
 LOCAL_SCRIPT_DIR=`cd $(dirname $0); pwd`
+#where i copy log to be analyzed and charted
 DATA_FILES=$LOCAL_SCRIPT_DIR/data
 
-#env variable
+#user variable mostly variable used because the way we stock log
+#these variables are only used to copy your slice of log in a local dir DATA_FILES 
+#ssh User-pass to connect and copy the VM log
 SSHPASSWORD=
 SSHUSER=
+
+#this is a namespace to tag your stats in graphite could be any thing
 NAMESPACE=
+
 ERR_FILEPATTERN=
 FILEPATTERN=
+#name of datacenters if you want to chart each datacenter on it's own
 DCENTER1=
 DCENTER2=
+#your application name 
 APP=
+#root dir for log
 DDIR=
 
 usage(){
     echo "this script gets a 10 minutes worth of log and inject them in graphite"
-    echo "Usage: sh $0 16 [1] this will analyse between 16:00 and 16:10"
-    echo "Usage: sh $0 16  this will analyse between 16:00 and 17:00"
+    echo "Usage: sh $0 16 [0] this will analyse between 16:00 and 16:10 not included"
+    echo "Usage: sh $0 16  this will analyse between 16:00 and 17:00 not included"
 }
 
 #######################################################################
-#remove old files 
+#remove old log files 
 #######################################################################
 cleanUp(){
     echo "cleanning old files in $DATA_FILES"
@@ -43,7 +54,7 @@ cleanUp(){
 }
 
 #######################################################################
-#
+# copy new load of log files to be analyzed
 #######################################################################
 getNewLoad(){
     for t in $MINUTES
@@ -55,6 +66,11 @@ getNewLoad(){
 	sshpass -p $SSHPASSWORD scp $SSHUSER:$DDIR/PRA/$APP/$HOUR-$t$EXACT_MIN/$FILEPATTERN ./data/"${DCENTER2}"/
     done
 }
+###################################################################
+# extract service response time and netcat to graphite
+# normaly some thing like that
+# com.service.IQuotationService.getOutwardProposalsByDay-lil 983 1392388973 
+##################################################################
 
 injectResponseTime(){
     local -r dataCenter="-"$1
