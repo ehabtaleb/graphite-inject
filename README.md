@@ -1,9 +1,17 @@
-graphite-inject
-===============
+#graphite-inject
 
 inject application log data in graphite
 
-1- clean old log files
+
+1- remove old log files                                                                                               
+===============
+
+cleanUp(){
+
+    echo "cleanning old files in $DATA_FILES"
+    find $DATA_FILES -type f -print0 | xargs -0 rm -f
+}
+
 
 2- copy new load of application log 
 
@@ -18,6 +26,7 @@ lunching the inject script
 =========================
 
 usage(){
+
     echo "this script gets a 10 minutes worth of log and inject them in graphite"
     echo "Usage: sh $0 16 [0] this will analyse between 16:00 and 16:10 not included"
     echo "Usage: sh $0 16  this will analyse between 16:00 and 17:00 not included"
