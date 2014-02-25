@@ -1,6 +1,12 @@
-#graphite-inject
+Graphite-inject script
+==================
+Read--transform--inject application log in graphite
 
-inject application log data in graphite
+the log is injected in the format
+
+serviceEndPoint     responseTime        timestamp
+
+com.service.IQuotationService.getProposalsByDay 403 1392689414
 
 
 1- remove old log files                                                                                               
