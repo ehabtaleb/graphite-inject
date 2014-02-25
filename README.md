@@ -40,7 +40,7 @@ injectResponseTime(){
 5- inject webservices number of errors by 10 mins
 
 
-lunching the inject script
+lunch the script
 =========================
 
 usage(){
