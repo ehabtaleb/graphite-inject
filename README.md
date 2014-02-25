@@ -4,9 +4,16 @@ Read--transform--inject application log in graphite
 
 the log is injected in the format
 
-serviceEndPoint     responseTime        timestamp
+    serviceEndPoint     responseTime        timestamp
+    com.service.IQuotationService.getProposalsByDay 403 1392689414
 
-com.service.IQuotationService.getProposalsByDay 403 1392689414
+
+0- start graphite
+
+
+
+    [:/opt/graphite]$sudo ./bin/run-graphite-devel-server.py /opt/graphite/
+    [:/opt/graphite]$sudo ./bin/carbon-cache.py start
 
 
 1- remove old log files                                                                                               
@@ -21,7 +28,6 @@ cleanUp(){
 2- copy new load of application log 
 
 3- Extract service response time and netcat to graphite                                                                                                                              
- normaly some thing like that                                                                                                           com.service.IQuotationService.getOutwardProposalsByDay-lil 983 1392388973                                                                                                         
 
 injectResponseTime(){
 
@@ -54,9 +60,8 @@ usage(){
 log format
 =====================
 
-time stamp|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|API_version|response_time |internal time|subsys time|com.service.FinalizationService.pay|subsys:2074|error[Y/N]|error detail
-
-2013-11-19 14:12:44.397+0100|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
+    time stamp|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|API_version|response_time |internal time|subsys time|com.service.FinalizationService.pay|subsys:2074|error[Y/N]|error detail
+    2013-11-19 14:12:44.397+0100|loggername|www.domain.com|instance61|WWW-correlation-id|http-ip|v1|2598|524|2074|com.service.FinalizationService.pay|subsys:2074|N
 
 
 
